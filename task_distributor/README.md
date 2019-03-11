@@ -1,0 +1,34 @@
+# Flask API to Trigger Kubernetes Jobs
+
+```
+mkvirtualenv wur_flask
+workon wur_flask
+```
+
+```
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+```
+curl -XPOST localhost:5000/k8s/cm --data @job.json --header "Content-Type: application/json"
+
+curl -XPOST localhost:5000/k8s/job
+```
+
+## Docker image
+
+The docker image is currently available at https://cloud.docker.com/repository/docker/haukurp/wur-task-distributor/general or haukurp/wur-task-distributor.
+
+This dockerhub repo is connected to the github repo at https://github.com/sara-nl/wur-event-driven. When a tag is introduced in that repo a corresponding image and tag is created at DockerHub.
+
+To build the image manually, run:
+
+```
+docker login
+
+# Maintain a version number according to the docker registry
+version=0.1
+docker build -t haukurp/wur-task-distributor:$version .
+docker push haukurp/wur-task-distributor:$version
+```

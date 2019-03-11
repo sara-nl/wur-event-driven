@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task-distributor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: task-distributor
+  template:
+    metadata:
+      labels:
+        app: task-distributor
+    spec:
+      serviceAccountName: sa-job-spawner
+      containers:
+      - name: task-distributor
+        image: haukurp/wur-task-distributor:0.3-rc1
+      imagePullSecrets:
+      - name: regcred
+---
+# Since the nginx ingress controller does not work properly in a single node rancher setup we need to use NodePort.
+kind: Service
+apiVersion: v1
+metadata:
+  name: task-distributor
+spec:
+  selector:
+    app: task-distributor
+  type: NodePort
+  ports:
+  - protocol: TCP
+    port: 5000
+    targetPort: 5000
+---
+# apiVersion: extensions/v1beta1
+# kind: Ingress
+# metadata:
+#   name: task-distributor
+#   annotations:
+#     kubernetes.io/ingress.class: nginx-external
+# spec:
+#   rules:
+#   - http:
+#       paths:
+#       - path: /task
+#         backend:
+#           serviceName: task-distributor
+#           servicePort: 80
