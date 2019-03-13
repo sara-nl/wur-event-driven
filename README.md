@@ -9,7 +9,7 @@ The `k8s` directory contains all code which is used to interract with Kubernetes
 
 The `task_distributor` contains all code which is used as an endpoint to iRODS.
 ## The setup
-
+[Overview](WUR-event-driven.png)
 ## iRODS setup
 The following test rule has been added to iRODS (add location on server).
 
