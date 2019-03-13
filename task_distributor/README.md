@@ -20,7 +20,7 @@ curl -XPOST localhost:5000/k8s/job
 
 ## Docker image
 
-The docker image is currently available at https://cloud.docker.com/repository/docker/haukurp/wur-task-distributor/general or haukurp/wur-task-distributor.
+The docker image is currently available at [DockerHub](https://cloud.docker.com/repository/docker/haukurp/wur-task-distributor/general) or haukurp/wur-task-distributor.
 
 ### Automatic build
 This dockerhub repo is connected to the github repo at https://github.com/sara-nl/wur-event-driven. When a tag is introduced in that repo a corresponding image and tag is created at DockerHub.
