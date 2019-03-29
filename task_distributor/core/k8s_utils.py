@@ -65,7 +65,7 @@ def get_config_map():
         if 'job.yaml' in res.data:
             return yaml.load(res.data['job.yaml'])
         elif 'job.json' in res.data:
-            return json.loads(res.data['job.yaml'])
+            return json.loads(res.data['job.json'])
         else:
             raise ApiException("Did not find the job description.")
     except ApiException as e:
