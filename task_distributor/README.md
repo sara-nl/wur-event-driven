@@ -22,6 +22,11 @@ The docker image is currently available at https://cloud.docker.com/repository/d
 
 This dockerhub repo is connected to the github repo at https://github.com/sara-nl/wur-event-driven. When a tag is introduced in that repo a corresponding image and tag is created at DockerHub.
 
+```
+git tag 0.0.3
+git push origin 0.0.3
+```
+
 To build the image manually, run:
 
 ```
