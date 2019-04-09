@@ -18,7 +18,7 @@ curl -XPOST localhost:5000/k8s/cm --data @job.json --header "Content-Type: appli
 #curl -XPOST localhost:5000/k8s/job
 curl -XPOST localhost:5000/k8s/job \
     -H "Content-Type: application/json" \
-    -d '{"path": "/tempZone/home/davids/testfile"}'
+    -d '{"path": "/tempZone/home/demo/P_project/I_investigation/S_study/DNA/A_assayX"}'
 ```
 
 ## Docker image

@@ -10,7 +10,7 @@ spec:
         image: wurssb/unlock_fastp
         args:
         - -c
-        - /tempZone/home/demo/P_project/I_investigation/S_study/DNA/A_assayX
+        - {{ path }}
         resources:
           requests:
             memory: "4Gi"
