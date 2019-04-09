@@ -15,7 +15,10 @@ pip install -r requirements.txt
 ```
 curl -XPOST localhost:5000/k8s/cm --data @job.json --header "Content-Type: application/json"
 
-curl -XPOST localhost:5000/k8s/job
+#curl -XPOST localhost:5000/k8s/job
+curl -XPOST localhost:5000/k8s/job \
+    -H "Content-Type: application/json" \
+    -d '{"path": "/tempZone/home/davids/testfile"}'
 ```
 
 ## Docker image

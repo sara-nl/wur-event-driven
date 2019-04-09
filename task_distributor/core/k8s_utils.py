@@ -11,6 +11,7 @@ import kubernetes.client
 from kubernetes.client.rest import ApiException
 import time
 import copy
+from jinja2 import Template
 
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -32,7 +33,12 @@ else:
 
 
 def create_config_map(cm_json):
-    """Create a config map with the job configuration template."""
+    """Create a config map with the job configuration template.
+
+    The template can contain Jinja2 templates that will be rendered later on
+    when submitting job with the create_job method, using the dictionary
+    passed as an argument.
+    """
 
     body = kubernetes.client.V1ConfigMap(
             api_version='v1',
@@ -61,7 +67,7 @@ def get_config_map():
     try:
         res = api.read_namespaced_config_map(cm_name, namespace)
         logger.info(res)
-        # if the job description was provided in yaml, we read it like that
+        # If the job description was provided in yaml, we read it like that.
         if 'job.yaml' in res.data:
             return yaml.load(res.data['job.yaml'])
         elif 'job.json' in res.data:
@@ -72,13 +78,26 @@ def get_config_map():
         logger.error("Exception when calling CoreV1Api->read_namespaced_config_map: %s\n" % e)
 
 
-def create_job():
-    """Create job in Kubernetes."""
+def create_job(context):
+    """Create job in Kubernetes.
+
+    The job configuration is obtained from a config map.
+    The config map can contain Jinja2 templates that are rendered here,
+    using the dictionary passed as an argument.
+
+    Arguments:
+        context: Dictionary for the Jinja2 rendering.
+    """
 
     job_name = f'{time.time():.0f}'
 
     job_json = get_config_map()
     job_json["metadata"]["name"] = job_name
+
+    # Replace the Jinja2 templates.
+    if context:
+        for k, v in job_json.items():
+            job_json[k] = Template(v).render(context)
 
     job = kubernetes.client.V1Job(
             api_version=job_json["apiVersion"],
