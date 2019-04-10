@@ -16,6 +16,7 @@ spec:
       containers:
       - name: task-distributor
         image: haukurp/wur-task-distributor:0.5
+        imagePullPolicy: Always
       imagePullSecrets:
       - name: regcred
 ---
