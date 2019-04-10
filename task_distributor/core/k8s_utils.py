@@ -96,8 +96,7 @@ def create_job(context):
 
     # Replace the Jinja2 templates.
     if context:
-        for k, v in job_json.items():
-            job_json[k] = Template(v).render(context)
+        job_json = json.loads(Template(job_json.dumps()).render(context))
 
     job = kubernetes.client.V1Job(
             api_version=job_json["apiVersion"],
