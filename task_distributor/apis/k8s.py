@@ -46,6 +46,7 @@ class JobResource(Resource):
             -d '{"path": "/tempZone/home/davids/testfile"}'
         """
 
+        logger.debug(api.payload)
         if k8s_utils.create_job(api.payload):
             return "Job created.", 200
         else:
