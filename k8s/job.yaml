@@ -10,7 +10,7 @@ spec:
         image: wurssb/unlock_fastp
         args:
         - -c
-        - {{ path }}
+        - "{{ path }}"
         resources:
           requests:
             memory: "4Gi"
