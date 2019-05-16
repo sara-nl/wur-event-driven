@@ -34,7 +34,20 @@ class JobResource(Resource):
     @api.response(200, "Job created.")
     @api.response(500, "Job cannot be created.")
     def post(self):
-        if k8s_utils.create_job():
+        """Create job in Kubernetes.
+
+        JSON payload is expected, containing a path to the file on iRODS that
+        generated a webhook trigger. This path will be used in an argument
+        for the Docker container running in the job.
+        The path is templated in the config map.
+
+        curl -XPOST localhost:5000/k8s/job \
+            -H "Content-Type: application/json" \
+            -d '{"path": "/tempZone/home/davids/testfile"}'
+        """
+
+        logger.debug(api.payload)
+        if k8s_utils.create_job(api.payload):
             return "Job created.", 200
         else:
             api.abort(500, "Job cannot be created.")

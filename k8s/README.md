@@ -41,3 +41,9 @@ Currently the application is deployed at
 http://145.100.58.247:31162
 
 The API has a Swagger endpoint.
+
+```
+curl -XPOST http://145.100.58.247:31162/k8s/job \
+    -H "Content-Type: application/json" \
+    -d '{"path": "/tempZone/home/demo/P_project/I_investigation/S_study/DNA/A_assayX"}'
+```

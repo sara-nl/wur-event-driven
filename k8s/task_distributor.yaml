@@ -15,7 +15,8 @@ spec:
       serviceAccountName: sa-job-spawner
       containers:
       - name: task-distributor
-        image: haukurp/wur-task-distributor:0.3-rc1
+        image: haukurp/wur-task-distributor:0.5
+        imagePullPolicy: Always
       imagePullSecrets:
       - name: regcred
 ---
